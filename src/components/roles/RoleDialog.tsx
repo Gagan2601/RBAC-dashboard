@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
     Dialog,
@@ -16,12 +16,10 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Role, Permission } from '@/types';
 
-interface RoleDialogProps {
+interface RolesDialogProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     onSubmit: (data: Partial<Role>) => void;
@@ -29,20 +27,45 @@ interface RoleDialogProps {
     permissions: Permission[];
 }
 
-const RoleDialog = ({
+interface RoleFormValues {
+    name: string;
+    description: string;
+    permissions: string[];
+}
+
+const RolesDialog = ({
     open,
     onOpenChange,
     onSubmit,
     role,
     permissions,
-}: RoleDialogProps) => {
-    const form = useForm({
+}: RolesDialogProps) => {
+    const form = useForm<RoleFormValues>({
         defaultValues: {
-            name: role?.name || '',
-            description: role?.description || '',
-            permissions: role?.permissions.map(p => p.id) || [],
+            name: '',
+            description: '',
+            permissions: [],
         },
     });
+
+    const { reset } = form;
+
+    // Update form values when the `role` prop changes
+    useEffect(() => {
+        if (role) {
+            reset({
+                name: role.name,
+                description: role.description || '',
+                permissions: role.permissions.map(p => p.id),
+            });
+        } else {
+            reset({
+                name: '',
+                description: '',
+                permissions: [],
+            });
+        }
+    }, [role, reset]);
 
     const handleSubmit = (data: any) => {
         onSubmit({
@@ -65,10 +88,10 @@ const RoleDialog = ({
                         <FormField
                             control={form.control}
                             name="name"
-                            rules={{ required: 'Name is required' }}
+                            rules={{ required: 'Role name is required' }}
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Role Name</FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -79,46 +102,52 @@ const RoleDialog = ({
                         <FormField
                             control={form.control}
                             name="description"
-                            rules={{ maxLength: { value: 100, message: 'Description must be under 100 characters' } }}
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea {...field} />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
-                        <div className="space-y-4">
-                            <FormLabel>Permissions</FormLabel>
-                            {permissions.map((permission) => (
-                                <FormField
-                                    key={permission.id}
-                                    control={form.control}
-                                    name="permissions"
-                                    rules={{ validate: value => value.length > 0 || 'At least one permission must be selected' }}
-                                    render={({ field }) => (
-                                        <FormItem className="flex items-center space-x-2">
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value?.includes(permission.id)}
-                                                    onCheckedChange={(checked) => {
-                                                        const updatedPermissions = checked
-                                                            ? [...field.value, permission.id]
-                                                            : field.value.filter((id: string) => id !== permission.id);
-                                                        field.onChange(updatedPermissions);
+                        <FormField
+                            control={form.control}
+                            name="permissions"
+                            rules={{
+                                validate: value =>
+                                    value.length > 0 || 'At least one permission must be selected',
+                            }}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Permissions</FormLabel>
+                                    <div className="flex flex-wrap gap-2">
+                                        {permissions.map(permission => (
+                                            <label
+                                                key={permission.id}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    value={permission.id}
+                                                    checked={field.value.includes(permission.id)}
+                                                    onChange={e => {
+                                                        const value = e.target.value;
+                                                        const newValues = e.target.checked
+                                                            ? [...field.value, value]
+                                                            : field.value.filter(id => id !== value);
+                                                        field.onChange(newValues);
                                                     }}
                                                 />
-                                            </FormControl>
-                                            <FormLabel className="font-normal">
                                                 {permission.name}
-                                            </FormLabel>
-                                        </FormItem>
-                                    )}
-                                />
-                            ))}
-                        </div>
+                                            </label>
+                                        ))}
+                                    </div>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <DialogFooter>
                             <Button type="submit">
                                 {role ? 'Save Changes' : 'Create Role'}
@@ -131,4 +160,4 @@ const RoleDialog = ({
     );
 };
 
-export default RoleDialog;
+export default RolesDialog;

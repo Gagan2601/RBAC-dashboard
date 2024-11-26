@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button";
 import RoleTable from '@/components/roles/RoleTable';
 import RoleDialog from '@/components/roles/RoleDialog';
 import { Role, Permission } from '@/types';
-import { createRole, getRoles, getPermissions } from '@/lib/api';
+import { createRole, getRoles, getPermissions, updateRole, deleteRole } from '@/lib/api';
 import { useToast } from "@/hooks/use-toast";
 
 export default function RolesPage() {
+    const [loading, setLoading] = useState(true);
     const [roles, setRoles] = useState<Role[]>([]);
     const [permissions, setPermissions] = useState<Permission[]>([]);
     const [selectedRole, setSelectedRole] = useState<Role | undefined>();
@@ -23,6 +24,7 @@ export default function RolesPage() {
 
     const fetchRoles = async () => {
         try {
+            setLoading(true);
             const response = await getRoles();
             setRoles(response.data);
         } catch (error) {
@@ -31,6 +33,8 @@ export default function RolesPage() {
                 description: "Failed to fetch roles",
                 variant: "destructive",
             });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -67,7 +71,7 @@ export default function RolesPage() {
     const handleUpdateRole = async (roleData: Partial<Role>) => {
         if (!selectedRole) return;
         try {
-            // Add API call here when implemented
+            await updateRole(selectedRole.id, roleData);
             toast({
                 title: "Success",
                 description: "Role updated successfully",
@@ -84,7 +88,7 @@ export default function RolesPage() {
 
     const handleDeleteRole = async (roleId: string) => {
         try {
-            // Add API call here when implemented
+            await deleteRole(roleId);
             toast({
                 title: "Success",
                 description: "Role deleted successfully",
@@ -125,6 +129,7 @@ export default function RolesPage() {
                 roles={roles}
                 onEdit={handleEdit}
                 onDelete={handleDeleteRole}
+                loading={loading}
             />
 
             <RoleDialog

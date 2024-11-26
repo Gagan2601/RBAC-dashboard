@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
     Dialog,
@@ -34,6 +34,13 @@ interface UserDialogProps {
     roles: Role[];
 }
 
+interface UserFormValues {
+    name: string;
+    email: string;
+    status: string;
+    roles: string[];
+}
+
 const UserDialog = ({
     open,
     onOpenChange,
@@ -41,14 +48,34 @@ const UserDialog = ({
     user,
     roles
 }: UserDialogProps) => {
-    const form = useForm({
+    const form = useForm<UserFormValues>({
         defaultValues: {
-            name: user?.name || '',
-            email: user?.email || '',
-            status: user?.status || 'active',
-            roles: user?.roles.map(r => r.id) || [],
+            name: '',
+            email: '',
+            status: 'active',
+            roles: [],
         },
     });
+
+    const { reset } = form;
+
+    useEffect(() => {
+        if (user) {
+            reset({
+                name: user.name,
+                email: user.email,
+                status: user.status,
+                roles: user.roles.map(r => r.id),
+            });
+        } else {
+            reset({
+                name: '',
+                email: '',
+                status: 'active',
+                roles: [],
+            });
+        }
+    }, [user, reset]);
 
     const handleSubmit = (data: any) => {
         onSubmit({
@@ -133,23 +160,25 @@ const UserDialog = ({
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Roles</FormLabel>
-                                    <Select
-                                        onValueChange={field.onChange}
-                                        defaultValue={field.value}
-                                    >
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select roles" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            {roles.map(role => (
-                                                <SelectItem key={role.id} value={role.id}>
-                                                    {role.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                    <div className="flex flex-wrap gap-2">
+                                        {roles.map(role => (
+                                            <label key={role.id} className="flex items-center gap-2">
+                                                <input
+                                                    type="checkbox"
+                                                    value={role.id}
+                                                    checked={field.value.includes(role.id)}
+                                                    onChange={e => {
+                                                        const value = e.target.value;
+                                                        const newValues = e.target.checked
+                                                            ? [...field.value, value]
+                                                            : field.value.filter(id => id !== value);
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                                {role.name}
+                                            </label>
+                                        ))}
+                                    </div>
                                     <FormMessage />
                                 </FormItem>
                             )}

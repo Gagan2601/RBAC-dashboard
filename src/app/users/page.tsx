@@ -10,6 +10,7 @@ import { getUsers, getRoles, createUser, updateUser, deleteUser } from '@/lib/ap
 import { useToast } from "@/hooks/use-toast";
 
 export default function UsersPage() {
+    const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState<User[]>([]);
     const [roles, setRoles] = useState<Role[]>([]);
     const [selectedUser, setSelectedUser] = useState<User | undefined>();
@@ -23,6 +24,7 @@ export default function UsersPage() {
 
     const fetchUsers = async () => {
         try {
+            setLoading(true);
             const response = await getUsers();
             setUsers(response.data);
         } catch (error) {
@@ -31,6 +33,8 @@ export default function UsersPage() {
                 description: "Failed to fetch users",
                 variant: "destructive",
             });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -124,6 +128,7 @@ export default function UsersPage() {
                 users={users}
                 onEdit={handleEdit}
                 onDelete={handleDeleteUser}
+                loading={loading}
             />
 
             <UserDialog

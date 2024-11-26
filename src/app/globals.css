@@ -141,3 +141,29 @@ body {
 .animate-badge-fade-in {
   animation: badge-fade-in 0.4s ease-out forwards;
 }
+
+@keyframes glow-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow-rotation-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-glow-rotation {
+  animation: glow-rotation 6s linear infinite;
+}
+
+.animate-glow-rotation-reverse {
+  animation: glow-rotation-reverse 6s linear infinite;
+}
