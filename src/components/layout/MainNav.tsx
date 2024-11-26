@@ -4,12 +4,10 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useTheme } from "next-themes";
 
 export function MainNav() {
     const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { theme, setTheme } = useTheme();
 
     const routes = [
         {

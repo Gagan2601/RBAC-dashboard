@@ -37,7 +37,7 @@ interface UserDialogProps {
 interface UserFormValues {
     name: string;
     email: string;
-    status: string;
+    status: "active" | "inactive";
     roles: string[];
 }
 
@@ -77,7 +77,7 @@ const UserDialog = ({
         }
     }, [user, reset]);
 
-    const handleSubmit = (data: any) => {
+    const handleSubmit = (data: UserFormValues) => {
         onSubmit({
             ...data,
             roles: roles.filter(r => data.roles.includes(r.id)),

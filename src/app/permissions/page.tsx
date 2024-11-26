@@ -26,6 +26,7 @@ export default function PermissionsPage() {
             const response = await getPermissions();
             setPermissions(response.data);
         } catch (error) {
+            console.error(error);
             toast({
                 title: 'Error',
                 description: 'Failed to fetch permissions',
@@ -42,6 +43,7 @@ export default function PermissionsPage() {
             toast({ title: 'Success', description: 'Permission created successfully' });
             fetchPermissions();
         } catch (error) {
+            console.error(error);
             toast({ title: 'Error', description: 'Failed to create permission', variant: 'destructive' });
         }
     };
@@ -53,6 +55,7 @@ export default function PermissionsPage() {
             toast({ title: 'Success', description: 'Permission updated successfully' });
             fetchPermissions();
         } catch (error) {
+            console.error(error);
             toast({ title: 'Error', description: 'Failed to update permission', variant: 'destructive' });
         }
     };
@@ -63,6 +66,7 @@ export default function PermissionsPage() {
             toast({ title: 'Success', description: 'Permission deleted successfully' });
             fetchPermissions();
         } catch (error) {
+            console.error(error);
             toast({ title: 'Error', description: 'Failed to delete permission', variant: 'destructive' });
         }
     };

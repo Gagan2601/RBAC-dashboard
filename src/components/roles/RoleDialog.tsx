@@ -67,7 +67,7 @@ const RolesDialog = ({
         }
     }, [role, reset]);
 
-    const handleSubmit = (data: any) => {
+    const handleSubmit = (data: RoleFormValues) => {
         onSubmit({
             ...data,
             permissions: permissions.filter(p => data.permissions.includes(p.id)),

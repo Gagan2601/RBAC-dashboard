@@ -26,7 +26,7 @@ export default function DashboardPage() {
 
         setUserCount(usersResponse.data.length);
         setActiveUserCount(
-          usersResponse.data.filter((user: any) => user.status === "active").length
+          usersResponse.data.filter((user) => user.status === "active").length
         );
         setRoleCount(rolesResponse.data.length);
         setPermissionCount(permissionsResponse.data.length);

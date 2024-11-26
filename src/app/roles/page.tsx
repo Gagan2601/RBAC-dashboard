@@ -28,6 +28,7 @@ export default function RolesPage() {
             const response = await getRoles();
             setRoles(response.data);
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to fetch roles",
@@ -43,6 +44,7 @@ export default function RolesPage() {
             const response = await getPermissions();
             setPermissions(response.data);
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to fetch permissions",
@@ -60,6 +62,7 @@ export default function RolesPage() {
             });
             fetchRoles();
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to create role",
@@ -78,6 +81,7 @@ export default function RolesPage() {
             });
             fetchRoles();
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to update role",
@@ -95,6 +99,7 @@ export default function RolesPage() {
             });
             fetchRoles();
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to delete role",

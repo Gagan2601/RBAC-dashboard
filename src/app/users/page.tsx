@@ -28,6 +28,7 @@ export default function UsersPage() {
             const response = await getUsers();
             setUsers(response.data);
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to fetch users",
@@ -43,6 +44,7 @@ export default function UsersPage() {
             const response = await getRoles();
             setRoles(response.data);
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to fetch roles",
@@ -60,6 +62,7 @@ export default function UsersPage() {
             });
             fetchUsers();
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to create user",
@@ -78,6 +81,7 @@ export default function UsersPage() {
             });
             fetchUsers();
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to update user",
@@ -95,6 +99,7 @@ export default function UsersPage() {
             });
             fetchUsers();
         } catch (error) {
+            console.error(error);
             toast({
                 title: "Error",
                 description: "Failed to delete user",
