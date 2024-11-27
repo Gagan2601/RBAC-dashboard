@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RBAC Dashboard
 
-## Getting Started
+A robust and customizable **Role-Based Access Control (RBAC) Dashboard** built using **Next.js** and **TypeScript**, featuring modern UI components with **Shadcn UI**. The application allows administrators to manage users, roles, and permissions dynamically, showcasing creativity and technical proficiency.
 
-First, run the development server:
+### 🌐 **Live Demo**  
+[RBAC Dashboard on Vercel](https://rbac-dashboard-psi.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **User Management**: Add, edit, delete, and view users with assigned roles.  
+- **Role Management**: Create, update, and remove roles with specific permissions.  
+- **Dynamic Permissions**: Assign and manage granular permissions dynamically for each role.  
+- **Responsive UI**: Modern and responsive design using **Shadcn UI** for a smooth user experience.  
+- **Secure Access**: Implements role-based access control to secure sensitive actions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/)  
+- **UI Components**: [Shadcn UI](https://shadcn.dev/)  
+- **Styling**: Tailwind CSS  
+- **Deployment**: Vercel  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 Installation
 
-## Deploy on Vercel
+**1**. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Gagan2601/RBAC-dashboard.git
+   cd RBAC-dashboard
+   ```
+**2**. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+**3**. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+**4**. **Open the app in your browser:**  
+   Open http://localhost:3000 to view the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📚 How It Works
+
+- **User Management**: Manage all registered users and their roles.
+- **Role Assignment**: Assign specific roles to users to control their access levels.
+- **Permissions**: Dynamically adjust role permissions through the dashboard.
+
+---
+
+## 🧑‍💻 Contributing
+
+We welcome contributions! If you want to improve this project, feel free to fork it and submit a pull request. Here's how you can contribute:
+
+1. **Fork** the repository.
+2. **Clone** your fork locally.
+3. Make your changes and ensure all tests pass.
+4. **Commit** your changes.
+5. **Push** to your fork and create a pull request.
+
+---
+
+## 📑 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
+
+- **Gagandeep Singh**  
+  [GitHub](https://github.com/Gagan2601) | [LinkedIn](https://www.linkedin.com/in/gagandeep-singh-836602232/)
+
+---
+
+## 💬 Support
+
+If you have any questions or issues, feel free to open an issue on the GitHub repository or contact the author directly.
+
+---
